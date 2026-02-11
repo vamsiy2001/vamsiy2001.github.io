@@ -137,6 +137,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
         }
 
         .theme-toggle {
@@ -350,52 +358,130 @@
             margin: 0 auto;
         }
 
+        /* About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .about-paragraph {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .about-paragraph.highlight {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 136, 255, 0.1) 100%);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .highlight-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .highlight-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 968px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-highlights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Experience Timeline */
         .timeline {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             position: relative;
+            padding-left: 3rem;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 50%;
+            left: 0;
             top: 0;
             bottom: 0;
             width: 2px;
             background: var(--gradient-accent);
-            transform: translateX(-50%);
         }
 
         .timeline-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
             position: relative;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            grid-column: 1;
-            grid-row: 1;
-        }
-
-        .timeline-item:nth-child(even) .timeline-empty {
-            grid-column: 2;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
         }
 
         .timeline-dot {
             position: absolute;
-            left: 50%;
+            left: -3rem;
             top: 2rem;
             width: 16px;
             height: 16px;
             background: var(--accent-primary);
             border-radius: 50%;
-            transform: translateX(-50%);
             box-shadow: 0 0 20px var(--accent-glow);
             z-index: 2;
+            border: 3px solid var(--bg-primary);
         }
 
         .timeline-content {
@@ -404,10 +490,11 @@
             border-radius: 12px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .timeline-content:hover {
-            transform: translateY(-5px);
+            transform: translateX(10px);
             border-color: var(--accent-primary);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
@@ -440,6 +527,7 @@
             padding: 0.4rem 1rem;
             background: rgba(0, 217, 255, 0.1);
             border-radius: 20px;
+            white-space: nowrap;
         }
 
         .achievements {
@@ -876,19 +964,21 @@
                 left: 0;
             }
 
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .timeline {
                 padding-left: 2rem;
             }
 
-            .timeline-item:nth-child(even) .timeline-content {
-                grid-column: 1;
+            .timeline-item {
+                padding-left: 1.5rem;
             }
 
             .timeline-dot {
-                left: 0;
+                left: -2rem;
                 transform: translateX(-50%);
+            }
+
+            .timeline-content:hover {
+                transform: translateX(5px);
             }
 
             .projects-grid {
@@ -925,9 +1015,10 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">VK_</div>
+            <a href="#about" class="logo">Home</a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
             <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -953,6 +1044,64 @@
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-label">Get to Know Me</div>
+                <h2 class="section-title">About Me</h2>
+            </div>
+
+            <div class="about-content fade-in">
+                <div class="about-text">
+                    <p class="about-paragraph">
+                        I'm a Data Scientist and Engineer who builds end-to-end machine learning solutions that actually ship to production. 
+                        With a Master's in Data Science from the University of Houston (GPA: 3.8/4.0) and over 2 years of industry experience, 
+                        I've spent my career turning messy data into scalable systems that drive measurable business impact.
+                    </p>
+                    <p class="about-paragraph">
+                        My expertise spans the full ML lifecycle — from architecting data pipelines and building computer vision models to deploying 
+                        GenAI solutions and optimizing production systems. At Innominds, I engineered document intelligence pipelines processing 
+                        4,000+ daily records with 95% accuracy and built safety monitoring systems serving 500+ workers. As a Graduate Assistant at UH, 
+                        I developed predictive models that improved course pass rates by 18% and reduced dropout risk by 30%.
+                    </p>
+                    <p class="about-paragraph">
+                        I'm passionate about leveraging cutting-edge technologies — from YOLOv5 and TensorFlow for computer vision to LangChain 
+                        and RAG systems for intelligent applications. I hold a Databricks Certified Data Engineer Associate certification and thrive 
+                        at the intersection of data engineering, machine learning, and product development.
+                    </p>
+                    <p class="about-paragraph highlight">
+                        Currently seeking Data Scientist, ML/AI Engineer, Data Analyst, and Data Engineer roles where I can build scalable solutions, 
+                        work with cross-functional teams, and create systems that make a real difference. I'm open to opportunities across the USA.
+                    </p>
+                </div>
+
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🎓</div>
+                        <div class="highlight-title">Education</div>
+                        <div class="highlight-text">MS Data Science, UH<br>GPA: 3.8/4.0</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">💼</div>
+                        <div class="highlight-title">Experience</div>
+                        <div class="highlight-text">2+ Years<br>Production ML Systems</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🏆</div>
+                        <div class="highlight-title">Certified</div>
+                        <div class="highlight-text">Databricks Data Engineer<br>Associate</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🚀</div>
+                        <div class="highlight-title">Deployed</div>
+                        <div class="highlight-text">Production AI Systems<br>99.5% Uptime</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -993,13 +1142,11 @@
                             <span class="tech-tag">Git</span>
                         </div>
                     </div>
-                    <div class="timeline-empty"></div>
                 </div>
 
                 <!-- Graduate Assistant -->
                 <div class="timeline-item fade-in">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-empty"></div>
                     <div class="timeline-content">
                         <div class="timeline-header">
                             <div>
