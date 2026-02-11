@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vamsi Krishna | Data Scientist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +23,21 @@
             --gradient-accent: linear-gradient(90deg, #00d9ff 0%, #0088ff 100%);
         }
 
+        [data-theme="light"] {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e9ecef;
+            --accent-primary: #0088ff;
+            --accent-secondary: #00d9ff;
+            --accent-glow: rgba(0, 136, 255, 0.3);
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #6b6b6b;
+            --border-color: rgba(0, 136, 255, 0.2);
+            --gradient-1: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --gradient-accent: linear-gradient(90deg, #0088ff 0%, #00d9ff 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -35,6 +50,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Animated Background */
@@ -59,6 +75,11 @@
             background: radial-gradient(circle at 30% 50%, rgba(0, 217, 255, 0.08) 0%, transparent 50%),
                         radial-gradient(circle at 70% 80%, rgba(0, 136, 255, 0.06) 0%, transparent 50%);
             animation: rotate 60s linear infinite;
+        }
+
+        [data-theme="light"] .bg-decoration::before {
+            background: radial-gradient(circle at 30% 50%, rgba(0, 136, 255, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 217, 255, 0.04) 0%, transparent 50%);
         }
 
         @keyframes rotate {
@@ -118,10 +139,30 @@
             background-clip: text;
         }
 
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--accent-primary);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
         .nav-links {
             display: flex;
             gap: 2.5rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -197,7 +238,7 @@
             font-size: clamp(2.5rem, 8vw, 5.5rem);
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             letter-spacing: -2px;
             animation: fadeInUp 1s ease-out 0.4s both;
         }
@@ -209,9 +250,18 @@
             background-clip: text;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
+        .hero-rotating-text {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
             color: var(--text-secondary);
+            min-height: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            font-weight: 500;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-muted);
             max-width: 800px;
             margin: 0 auto 3rem;
             line-height: 1.8;
@@ -611,6 +661,9 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-family: 'Archivo', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
         }
 
         .contact-link:hover {
@@ -619,8 +672,142 @@
             transform: translateY(-5px);
         }
 
+        .contact-button {
+            background: var(--bg-secondary);
+        }
+
         .contact-icon {
             font-size: 1.5rem;
+        }
+
+        /* Email Popup Modal */
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .email-modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .email-modal-content {
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .email-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .email-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .email-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .email-close:hover {
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--accent-primary);
+            transform: rotate(90deg);
+        }
+
+        .email-display {
+            background: var(--bg-primary);
+            padding: 1.2rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--accent-primary);
+            word-break: break-all;
+            user-select: all;
+            cursor: text;
+        }
+
+        .email-copy-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .email-copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .email-copy-btn.copied {
+            background: linear-gradient(90deg, #00ff88 0%, #00cc66 100%);
+        }
+
+        .email-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 1rem;
         }
 
         /* Footer */
@@ -668,12 +855,21 @@
                 border-bottom: 1px solid var(--border-color);
             }
 
+            [data-theme="light"] .nav-links {
+                background: rgba(248, 249, 250, 0.98);
+            }
+
             .nav-links.active {
                 display: flex;
             }
 
             .mobile-menu-btn {
                 display: block;
+            }
+
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
             }
 
             .timeline::before {
@@ -729,13 +925,14 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">Vamsi Krishna Yerubandi</div>
+            <div class="logo">VK_</div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></li>
             </ul>
         </div>
     </nav>
@@ -745,12 +942,13 @@
         <div class="hero-content">
             <div class="hero-label">👋 Hi, I'm Vamsi Krishna</div>
             <h1>
-                <span class="gradient-text">Data Scientist</span><br>
-                turning complex data<br>into business impact
+                <span class="gradient-text">Data Scientist</span>
             </h1>
+            <p class="hero-rotating-text" id="rotatingText">
+                2+ years building production ML systems
+            </p>
             <p class="hero-subtitle">
-                MS in Data Science from University of Houston (3.81 GPA) with 18+ months building production ML systems. 
-                I specialize in end-to-end pipelines, deep learning deployment, and AI solutions that drive measurable results.
+                MS Data Science @ UH (3.8 GPA) • Databricks Certified Data Engineer
             </p>
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
@@ -775,27 +973,53 @@
                     <div class="timeline-content">
                         <div class="timeline-header">
                             <div>
-                                <h3 class="job-title">Data Science Trainee</h3>
-                                <p class="company">Innominds Software Pvt Ltd</p>
+                                <h3 class="job-title">Associate Data Scientist</h3>
+                                <p class="company">Innominds Software Pvt Ltd • Hyderabad, India</p>
                             </div>
                             <span class="duration">July 2022 – Dec 2023</span>
                         </div>
                         <ul class="achievements">
-                            <li>Designed and deployed end-to-end PDF document extraction pipelines, achieving over 95% accuracy and reducing manual processing time by approximately 60%</li>
-                            <li>Built and tuned multi-class object detection models (YOLO, TensorFlow) with 90%+ accuracy for construction safety compliance through data augmentation and model tuning</li>
-                            <li>Designed scalable preprocessing pipelines and deployed Generative AI solutions in collaboration with cross-functional teams</li>
+                            <li>Architected end-to-end document intelligence pipeline processing 4,000+ daily airway bills for Celebi Airways using Azure Form Recognizer and OpenCV; achieved 95% extraction accuracy on degraded scans, reducing manual processing by 60% (40→16 hrs weekly)</li>
+                            <li>Engineered computer vision safety monitoring system using YOLOv5 and TensorFlow to detect PPE compliance on construction sites; optimized multi-class object detection models to 90%+ accuracy, enabling real-time hazard alerts for 500+ workers across 3 active sites</li>
+                            <li>Collaborated with client stakeholders to deliver production-ready ML solutions via Docker and Git, achieving 99.5% uptime and a 70% reduction in deployment time</li>
                         </ul>
                         <div class="tech-tags">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">YOLO</span>
-                            <span class="tech-tag">Computer Vision</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">GenAI</span>
-                            <span class="tech-tag">MLOps</span>
+                            <span class="tech-tag">YOLOv5</span>
+                            <span class="tech-tag">Azure Form Recognizer</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Git</span>
                         </div>
                     </div>
                     <div class="timeline-empty"></div>
+                </div>
+
+                <!-- Graduate Assistant -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-empty"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="job-title">Graduate Assistant – STEM Tutor</h3>
+                                <p class="company">University of Houston • Houston, TX</p>
+                            </div>
+                            <span class="duration">July 2024 – Dec 2025</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Designed data-driven tutoring protocols by clustering student learning patterns (k-means) and personalizing instruction paths; increased average assessment scores by 1.2 letter grades across 200+ tutored students</li>
+                            <li>Developed predictive intervention models that improved course pass rates by 18% and reduced dropout risk by 30%</li>
+                            <li>Translated complex statistical concepts for non-technical students, achieving 95% satisfaction ratings and 40% increase in advanced course enrollment</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Statistical Analysis</span>
+                            <span class="tech-tag">Data Science</span>
+                            <span class="tech-tag">Excel</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -819,15 +1043,16 @@
                     </div>
                     <div class="project-body">
                         <p class="project-description">
-                            Intelligent documentation assistant powered by RAG (Retrieval-Augmented Generation). 
-                            Helps developers navigate complex technical docs through AI-powered Q&A. 
-                            Deployed on HuggingFace Spaces for real-time interaction.
+                            Enterprise RAG platform processing 1,000+ technical documentation pages using hybrid retrieval (BM25 + embeddings + reranking). 
+                            Achieved 94.4% faithfulness and 88.1% context precision via RAGAS evaluation. Built intelligent query routing with LangGraph 
+                            state machines, reducing irrelevant retrievals by 40% and improving answer accuracy to 98.4% relevancy.
                         </p>
                         <div class="tech-tags">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">LangChain</span>
-                            <span class="tech-tag">Vector DB</span>
-                            <span class="tech-tag">Transformers</span>
+                            <span class="tech-tag">LangGraph</span>
+                            <span class="tech-tag">ChromaDB</span>
+                            <span class="tech-tag">Groq</span>
                         </div>
                         <div class="project-links">
                             <a href="https://huggingface.co/spaces/vamsiyvk/devdocsAI" target="_blank" class="project-link">
@@ -914,6 +1139,31 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Celebi OCR -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <div class="project-type">Production • Computer Vision • OCR</div>
+                        <h3 class="project-title">Celebi Airway Bills OCR</h3>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Automated extraction of structured data from low-quality logistics documents, eliminating manual data entry bottlenecks for 10,000+ daily records. 
+                            Benchmarked Tesseract, Google OCR, and Azure Form Recognizer using precision/recall metrics; selected Azure solution improving accuracy by 30% on degraded scans.
+                        </p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Azure Form Recognizer</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">OpenCV</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/vamsiy2001" target="_blank" class="project-link">
+                                💻 View Profile →
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -938,8 +1188,23 @@
                         <span class="skill-item">SQL</span>
                         <span class="skill-item">Pandas</span>
                         <span class="skill-item">NumPy</span>
-                        <span class="skill-item">Scikit-learn</span>
-                        <span class="skill-item">R</span>
+                        <span class="skill-item">Linux</span>
+                        <span class="skill-item">Git</span>
+                    </div>
+                </div>
+
+                <div class="skill-category fade-in">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🔧</span>
+                        Data Engineering
+                    </h3>
+                    <div class="skill-list">
+                        <span class="skill-item">ETL/ELT Pipelines</span>
+                        <span class="skill-item">Databricks</span>
+                        <span class="skill-item">Delta Lake</span>
+                        <span class="skill-item">Apache Airflow</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">CI/CD</span>
                     </div>
                 </div>
 
@@ -950,11 +1215,11 @@
                     </h3>
                     <div class="skill-list">
                         <span class="skill-item">TensorFlow</span>
-                        <span class="skill-item">Keras</span>
                         <span class="skill-item">PyTorch</span>
-                        <span class="skill-item">LSTM/GRU</span>
-                        <span class="skill-item">YOLO</span>
+                        <span class="skill-item">Scikit-learn</span>
+                        <span class="skill-item">YOLOv5</span>
                         <span class="skill-item">Computer Vision</span>
+                        <span class="skill-item">OpenCV</span>
                     </div>
                 </div>
 
@@ -964,55 +1229,39 @@
                         NLP & Generative AI
                     </h3>
                     <div class="skill-list">
-                        <span class="skill-item">Transformers</span>
                         <span class="skill-item">LangChain</span>
-                        <span class="skill-item">RAG</span>
-                        <span class="skill-item">Text Classification</span>
-                        <span class="skill-item">Machine Translation</span>
-                        <span class="skill-item">LLMs</span>
-                    </div>
-                </div>
-
-                <div class="skill-category fade-in">
-                    <h3 class="skill-category-title">
-                        <span class="skill-category-icon">⚙️</span>
-                        MLOps & Tools
-                    </h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Docker</span>
-                        <span class="skill-item">Git</span>
-                        <span class="skill-item">HuggingFace</span>
-                        <span class="skill-item">Jupyter</span>
-                        <span class="skill-item">Linux</span>
-                        <span class="skill-item">CI/CD</span>
+                        <span class="skill-item">LangGraph</span>
+                        <span class="skill-item">RAG Systems</span>
+                        <span class="skill-item">Vector Databases</span>
+                        <span class="skill-item">ChromaDB</span>
+                        <span class="skill-item">NLP</span>
                     </div>
                 </div>
 
                 <div class="skill-category fade-in">
                     <h3 class="skill-category-title">
                         <span class="skill-category-icon">🗄️</span>
-                        Data Engineering
+                        Databases & Storage
                     </h3>
                     <div class="skill-list">
-                        <span class="skill-item">ETL Pipelines</span>
-                        <span class="skill-item">Data Preprocessing</span>
-                        <span class="skill-item">Feature Engineering</span>
-                        <span class="skill-item">Data Cleaning</span>
+                        <span class="skill-item">MySQL</span>
                         <span class="skill-item">PostgreSQL</span>
+                        <span class="skill-item">Vector Stores</span>
+                        <span class="skill-item">Data Modeling</span>
                     </div>
                 </div>
 
                 <div class="skill-category fade-in">
                     <h3 class="skill-category-title">
                         <span class="skill-category-icon">📊</span>
-                        Analytics & Viz
+                        Analytics & Visualization
                     </h3>
                     <div class="skill-list">
-                        <span class="skill-item">Matplotlib</span>
+                        <span class="skill-item">Power BI</span>
                         <span class="skill-item">Seaborn</span>
-                        <span class="skill-item">Plotly</span>
                         <span class="skill-item">Statistical Analysis</span>
                         <span class="skill-item">A/B Testing</span>
+                        <span class="skill-item">Data Modeling</span>
                     </div>
                 </div>
             </div>
@@ -1035,10 +1284,10 @@
                 </p>
 
                 <div class="contact-links">
-                    <a href="mailto:vamsiyms@gmail.com" class="contact-link">
+                    <button onclick="showEmailPopup()" class="contact-link contact-button">
                         <span class="contact-icon">📧</span>
                         Email Me
-                    </a>
+                    </button>
                     <a href="https://www.linkedin.com/in/y-vamsi-krishna/" target="_blank" class="contact-link">
                         <span class="contact-icon">💼</span>
                         LinkedIn
@@ -1052,15 +1301,134 @@
         </div>
     </section>
 
+    <!-- Email Modal -->
+    <div class="email-modal" id="emailModal">
+        <div class="email-modal-content">
+            <div class="email-modal-header">
+                <h3 class="email-modal-title">📧 Contact Email</h3>
+                <button class="email-close" onclick="closeEmailPopup()">×</button>
+            </div>
+            <div class="email-display" id="emailAddress">vamsiyms@gmail.com</div>
+            <button class="email-copy-btn" id="copyEmailBtn" onclick="copyEmail()">
+                <span id="copyIcon">📋</span>
+                <span id="copyText">Copy to Clipboard</span>
+            </button>
+            <p class="email-note">Click to select • Button to copy</p>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p class="footer-text">
-            © 2025 Vamsi Krishna • MS in Data Science<br>
-            Built with HTML, CSS & JavaScript
+            © 2025 Vamsi Krishna • MS in Data Science, University of Houston (GPA: 3.8/4.0)<br>
+            🏆 Databricks Certified Data Engineer Associate • Built with HTML, CSS & JavaScript
         </p>
     </footer>
 
     <script>
+        // Email popup functions
+        function showEmailPopup() {
+            document.getElementById('emailModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeEmailPopup() {
+            document.getElementById('emailModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Reset button state
+            const btn = document.getElementById('copyEmailBtn');
+            const icon = document.getElementById('copyIcon');
+            const text = document.getElementById('copyText');
+            btn.classList.remove('copied');
+            icon.textContent = '📋';
+            text.textContent = 'Copy to Clipboard';
+        }
+
+        function copyEmail() {
+            const email = 'vamsiyms@gmail.com';
+            const btn = document.getElementById('copyEmailBtn');
+            const icon = document.getElementById('copyIcon');
+            const text = document.getElementById('copyText');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(email).then(() => {
+                // Show success state
+                btn.classList.add('copied');
+                icon.textContent = '✓';
+                text.textContent = 'Copied!';
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    icon.textContent = '📋';
+                    text.textContent = 'Copy to Clipboard';
+                }, 2000);
+            }).catch(err => {
+                // Fallback for older browsers
+                alert('Email: vamsiyms@gmail.com');
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('emailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'emailModal') {
+                closeEmailPopup();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeEmailPopup();
+            }
+        });
+
+        // Rotating text animation
+        const rotatingTexts = [
+            "2+ years building production ML systems",
+            "Specializing in end-to-end ML pipelines",
+            "Computer Vision • NLP • GenAI expertise",
+            "Deployed systems with 95%+ accuracy",
+            "Databricks Certified Data Engineer"
+        ];
+        
+        let currentTextIndex = 0;
+        const rotatingTextElement = document.getElementById('rotatingText');
+        
+        function rotateText() {
+            rotatingTextElement.style.opacity = '0';
+            
+            setTimeout(() => {
+                currentTextIndex = (currentTextIndex + 1) % rotatingTexts.length;
+                rotatingTextElement.textContent = rotatingTexts[currentTextIndex];
+                rotatingTextElement.style.opacity = '1';
+            }, 500);
+        }
+        
+        // Rotate every 3 seconds
+        setInterval(rotateText, 3000);
+        
+        // Add smooth transition
+        rotatingTextElement.style.transition = 'opacity 0.5s ease-in-out';
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const theme = htmlElement.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        });
+
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
