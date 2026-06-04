@@ -371,10 +371,9 @@
         #skills { background: var(--bg-secondary); }
         .skills-bento {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 16px;
         }
-        .sk-wide  { grid-column: span 2; }
         .sk-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -497,7 +496,6 @@
             .timeline-dot { left:-26px; }
             .carousel-card  { flex: 0 0 100%; }
             .skills-bento { grid-template-columns: 1fr; }
-            .sk-wide { grid-column: span 1; }
             .contact-card { padding:36px 24px; }
             .cert-banner { flex-direction:column; text-align:center; }
         }
@@ -756,7 +754,7 @@
         <div class="skills-bento">
 
             <!-- Data Engineering — wide -->
-            <div class="sk-card sk-de sk-wide fade-in">
+            <div class="sk-card sk-de fade-in">
                 <div class="sk-header">
                     <span class="sk-icon">🔧</span>
                     <span class="sk-title">Data Engineering</span>
@@ -779,7 +777,7 @@
             <div class="sk-card sk-lang fade-in">
                 <div class="sk-header">
                     <span class="sk-icon">🐍</span>
-                    <span class="sk-title">Languages &amp; Core</span
+                    <span class="sk-title">Languages &amp; Core</span>
                 </div>
                 <div class="skill-chips">
                     <span class="skill-chip">Python</span>
@@ -791,7 +789,7 @@
             </div>
 
             <!-- GenAI & LLMs — wide -->
-            <div class="sk-card sk-genai sk-wide fade-in">
+            <div class="sk-card sk-genai fade-in">
                 <div class="sk-header">
                     <span class="sk-icon">🚀</span>
                     <span class="sk-title">GenAI &amp; LLMs</span>
